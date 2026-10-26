@@ -3,29 +3,29 @@ export interface Project {
   summary: string;
   stack: string[];
   repoUrl?: string;
-  repoStatus: 'verified' | 'placeholder';
+  disclosure: 'public' | 'restricted';
 }
 
 export const projects: Project[] = [
   {
-    name: 'Zero-Trust Resilience Lab (placeholder title)',
+    name: 'ONOS–Atomix Zero-Trust and Raft Resilience Research',
     summary:
-      'Prototype and evaluation environment for Zero-Trust security and resilience in Raft-based Atomix clusters that support distributed ONOS controllers.',
-    stack: ['ONOS', 'Atomix', 'Raft', 'Cybersecurity', 'Distributed Systems'],
-    repoStatus: 'placeholder',
+      'Research and prototyping around lightweight Zero-Trust controls and resilience analysis at the ONOS–Atomix coordination boundary in SD-WAN-oriented distributed control scenarios.',
+    stack: ['ONOS', 'Atomix', 'Raft', 'SD-WAN', 'Zero-Trust Security'],
+    disclosure: 'restricted',
   },
   {
-    name: 'Network Automation Toolkit (placeholder title)',
+    name: 'OpenDaylight-based Network Automation and Control',
     summary:
-      'Automation workflows for SDN experimentation across ONOS and OpenDaylight environments using reproducible scripts and telemetry collection.',
-    stack: ['Python', 'OpenDaylight', 'SDN', 'Network Automation'],
-    repoStatus: 'placeholder',
+      'Controller-driven automation workflows for repeatable network provisioning, policy checks, and operational testing in software-defined environments.',
+    stack: ['OpenDaylight', 'Python', 'Network Automation', 'SDN'],
+    disclosure: 'restricted',
   },
   {
-    name: 'Computer Vision Edge Inference (placeholder title)',
+    name: 'Deep Learning and Resource-Constrained Computer Vision',
     summary:
-      'Resource-constrained computer vision experiments focused on deep learning inference performance and deployment trade-offs.',
+      'Experimental work on deploying and evaluating deep learning models for computer vision tasks under constrained compute and memory budgets.',
     stack: ['Deep Learning', 'Computer Vision', 'Python', 'Edge AI'],
-    repoStatus: 'placeholder',
+    disclosure: 'restricted',
   },
 ];

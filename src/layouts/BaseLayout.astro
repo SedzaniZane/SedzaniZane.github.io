@@ -8,7 +8,8 @@ interface Props {
 
 const {
   title = 'Sedzani Ndouvhada | Academic Research Portfolio',
-  description = 'Personal academic website for Sedzani Ndouvhada, MSc Computer Science researcher focused on SDN, distributed systems, cybersecurity, and AI.',
+  description =
+    'Personal academic website for Sedzani Ndouvhada, MSc Computer Science researcher at North-West University and Master\'s Research Student at CSIR focusing on SDN, SD-WAN, distributed systems, Zero-Trust security, and AI.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
@@ -18,10 +19,19 @@ const personSchema = {
   name: 'Sedzani Ndouvhada',
   jobTitle: 'MSc Computer Science Researcher',
   affiliation: [
-    { '@type': 'Organization', name: 'North-West University' },
+    { '@type': 'Organization', name: 'North-West University (NWU)' },
     { '@type': 'Organization', name: 'Council for Scientific and Industrial Research (CSIR)' },
   ],
-  knowsAbout: ['Software-Defined Networking', 'Distributed Systems', 'Cybersecurity', 'Artificial Intelligence', 'Deep Learning'],
+  knowsAbout: [
+    'Software-Defined Networking',
+    'SD-WAN',
+    'Distributed Systems',
+    'Zero-Trust Security',
+    'Network Automation',
+    'Artificial Intelligence',
+    'Deep Learning',
+    'Computer Vision',
+  ],
   url: Astro.site,
 };
 ---
