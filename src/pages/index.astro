@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Section from '../components/Section.astro';
+import { contacts, profile } from '../data/site';
+import { publications } from '../data/publications';
+import { projects } from '../data/projects';
+import { education, experience } from '../data/experience';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="main-content">
+    <section id="home" class="scroll-mt-24 py-16 sm:py-20">
+      <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.4fr,1fr] lg:px-8">
+        <div class="fade-in space-y-6">
+          <p class="chip">Academic Research Portfolio</p>
+          <h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl">{profile.name}</h1>
+          <p class="text-xl font-medium text-teal-700 dark:text-teal-300">{profile.headline}</p>
+          <p class="max-w-3xl text-lg leading-relaxed text-slate-700 dark:text-slate-300">{profile.intro}</p>
+          <div class="flex flex-wrap gap-2">
+            {profile.affiliations.map((item) => <span class="chip">{item}</span>)}
+          </div>
+        </div>
+        <aside class="section-card fade-in">
+          <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Featured Research Focus</h2>
+          <p class="mt-3 text-slate-700 dark:text-slate-300">
+            I investigate lightweight Zero-Trust security and resilience mechanisms around the ONOS–Atomix coordination boundary in SD-WAN environments.
+          </p>
+          <a href="#research" class="link-accent mt-4 inline-block">Explore current MSc research →</a>
+        </aside>
+      </div>
+    </section>
+
+    <Section id="about" title="About" intro="My academic background, research interests, and technical focus.">
+      <div class="section-card space-y-4">
+        {profile.bio.map((paragraph) => <p>{paragraph}</p>)}
+        <div class="grid gap-3 sm:grid-cols-2">
+          <div>
+            <h3 class="font-semibold text-slate-900 dark:text-slate-100">Research Interests</h3>
+            <ul class="mt-2 list-disc space-y-1 pl-5 text-slate-700 dark:text-slate-300">
+              <li>Software-Defined Networking (SDN) and SD-WAN</li>
+              <li>Distributed systems and Raft-oriented coordination</li>
+              <li>Zero-Trust security and network automation</li>
+              <li>Artificial intelligence, deep learning, and computer vision</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-900 dark:text-slate-100">Technical Experience Areas</h3>
+            <ul class="mt-2 list-disc space-y-1 pl-5 text-slate-700 dark:text-slate-300">
+              <li>ONOS, Atomix, and controller coordination analysis</li>
+              <li>OpenDaylight-based automation and control workflows</li>
+              <li>Mininet-backed experimentation and validation pipelines</li>
+              <li>Applied software development for networking research prototypes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </Section>
+
+    <Section id="research" title="Research" intro="Current MSc study">
+      <article class="section-card space-y-4">
+        <h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100">A Zero-Trust Raft-Based Security Model for Atomix Clusters in SD-WANs</h3>
+        <p class="text-slate-700 dark:text-slate-300">
+          In this MSc project, I study lightweight Zero-Trust security and resilience mechanisms around the ONOS–Atomix coordination boundary. My test environment uses three ONOS controllers, three Atomix coordination nodes, and a Mininet-based automation and testing setup.
+        </p>
+        <p class="text-slate-700 dark:text-slate-300">
+          The prototype investigates source-IP admission enforcement, ECDSA P-256 authentication, HMAC-SHA-256 integrity verification, TLS/mTLS transport protections, and Isolation Forest-based anomaly detection.
+        </p>
+        <p class="text-slate-700 dark:text-slate-300">
+          For methodological accuracy, native Raft consensus behaviour was not modified, and not every security control was integrated directly into native Raft communication paths.
+        </p>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Sensitive infrastructure details, private addresses, credentials, and confidential institutional information are intentionally excluded.
+        </p>
+      </article>
+    </Section>
+
+    <Section id="publications" title="Publications" intro="Published and accepted work with verification-aware metadata handling.">
+      <div class="grid gap-4">
+        {publications.map((item) => (
+          <article class="section-card">
+            <p class="chip mb-3">{item.status === 'published' ? 'Published' : `Accepted (${item.event})`}</p>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+              {item.title ?? `${item.event} paper metadata pending title confirmation`}
+            </h3>
+            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300"><strong>Authors:</strong> {item.authors.join(', ')}</p>
+            {item.venue && <p class="mt-1 text-sm text-slate-700 dark:text-slate-300"><strong>Venue:</strong> {item.venue}</p>}
+            {item.date && <p class="mt-1 text-sm text-slate-700 dark:text-slate-300"><strong>Date:</strong> {item.date}</p>}
+            {item.doi && (
+              <p class="mt-1 text-sm text-slate-700 dark:text-slate-300">
+                <strong>DOI:</strong> <a class="link-accent" href={item.doi} target="_blank" rel="noreferrer">{item.doi}</a>
+              </p>
+            )}
+            {item.metadataVerification === 'reported_unverified' && (
+              <p class="mt-3 text-xs text-slate-600 dark:text-slate-400">Metadata verification is in progress against authoritative bibliographic records.</p>
+            )}
+            {item.notes && <p class="mt-1 text-xs text-slate-600 dark:text-slate-400">{item.notes}</p>}
+          </article>
+        ))}
+      </div>
+    </Section>
+
+    <Section id="projects" title="Projects" intro="Research and engineering project categories with controlled disclosure.">
+      <div class="grid gap-4 lg:grid-cols-2">
+        {projects.map((project) => (
+          <article class="section-card">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">{project.name}</h3>
+            <p class="mt-2 text-slate-700 dark:text-slate-300">{project.summary}</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {project.stack.map((tech) => <span class="chip">{tech}</span>)}
+            </div>
+            {project.repoUrl ? (
+              <p class="mt-4 text-sm text-slate-600 dark:text-slate-400"><a class="link-accent" href={project.repoUrl} target="_blank" rel="noreferrer">View verified public repository</a></p>
+            ) : (
+              <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">No verified public repository is linked for this project category.</p>
+            )}
+          </article>
+        ))}
+      </div>
+    </Section>
+
+    <Section id="experience" title="Experience & Education" intro="Current research appointment and academic trajectory.">
+      <div class="grid gap-4 lg:grid-cols-2">
+        <div class="space-y-4">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Experience</h3>
+          {experience.map((item) => (
+            <article class="section-card">
+              <h4 class="font-semibold text-slate-900 dark:text-slate-100">{item.title}</h4>
+              <p class="text-sm text-teal-700 dark:text-teal-300">{item.organisation}</p>
+              {item.period && <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">{item.period}</p>}
+              <p class="mt-2 text-slate-700 dark:text-slate-300">{item.summary}</p>
+            </article>
+          ))}
+        </div>
+        <div class="space-y-4">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Education</h3>
+          {education.map((item) => (
+            <article class="section-card">
+              <h4 class="font-semibold text-slate-900 dark:text-slate-100">{item.title}</h4>
+              <p class="text-sm text-teal-700 dark:text-teal-300">{item.organisation}</p>
+              {item.period && <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">{item.period}</p>}
+              <p class="mt-2 text-slate-700 dark:text-slate-300">{item.summary}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
+
+    <Section id="cv" title="Academic CV" intro="Curriculum vitae availability.">
+      <div class="section-card">
+        <p class="text-slate-700 dark:text-slate-300">
+          My academic CV is being prepared for publication. A verified PDF version will be added in this section once final checks are complete.
+        </p>
+      </div>
+    </Section>
+
+    <Section id="contact" title="Contact" intro="Professional academic and research profiles.">
+      <div class="section-card grid gap-3 text-slate-700 dark:text-slate-300">
+        <p><strong>GitHub:</strong> <a class="link-accent" href={contacts.github} target="_blank" rel="noreferrer">{contacts.github}</a></p>
+        <p><strong>ORCID:</strong> <a class="link-accent" href={contacts.orcid} target="_blank" rel="noreferrer">{contacts.orcid}</a></p>
+        <p><strong>ResearchGate:</strong> <a class="link-accent" href={contacts.researchGate} target="_blank" rel="noreferrer">{contacts.researchGate}</a></p>
+      </div>
+    </Section>
+  </main>
+
+  <footer class="border-t border-slate-200 py-8 dark:border-slate-800">
+    <div class="mx-auto max-w-6xl px-4 text-sm text-slate-600 sm:px-6 lg:px-8 dark:text-slate-400">
+      © {new Date().getFullYear()} Sedzani Ndouvhada · Built with Astro, TypeScript and Tailwind CSS.
+    </div>
+  </footer>
+</BaseLayout>

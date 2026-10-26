@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Sedzani Ndouvhada | Academic Research Portfolio',
+  description =
+    'Personal academic website for Sedzani Ndouvhada, MSc Computer Science researcher at North-West University and Master\'s Research Student at CSIR focusing on SDN, SD-WAN, distributed systems, Zero-Trust security, and AI.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Sedzani Ndouvhada',
+  jobTitle: 'MSc Computer Science Researcher',
+  affiliation: [
+    { '@type': 'Organization', name: 'North-West University (NWU)' },
+    { '@type': 'Organization', name: 'Council for Scientific and Industrial Research (CSIR)' },
+  ],
+  knowsAbout: [
+    'Software-Defined Networking',
+    'SD-WAN',
+    'Distributed Systems',
+    'Zero-Trust Security',
+    'Network Automation',
+    'Artificial Intelligence',
+    'Deep Learning',
+    'Computer Vision',
+  ],
+  url: Astro.site,
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script is:inline>
+      (() => {
+        const preferred = localStorage.getItem('theme');
+        const darkPreferred = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (preferred === 'dark' || (!preferred && darkPreferred)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  </head>
+  <body>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-slate-900">Skip to main content</a>
+    <slot />
+  </body>
+</html>

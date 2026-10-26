@@ -1,0 +1,25 @@
+{
+  "name": "sedzanizane.github.io",
+  "version": "1.0.0",
+  "description": "Personal academic website and research portfolio",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^26.6.5",
+    "typescript": "^6.0.3"
+  },
+  "private": true,
+  "type": "module"
+}
