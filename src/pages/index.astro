@@ -6,6 +6,9 @@ import { contacts, profile } from '../data/site';
 import { publications } from '../data/publications';
 import { projects } from '../data/projects';
 import { education, experience } from '../data/experience';
+
+const publishedJournalArticles = publications.filter((item) => item.group === 'journal_article');
+const acceptedConferencePapers = publications.filter((item) => item.group === 'conference_paper');
 ---
 
 <BaseLayout>
@@ -76,28 +79,59 @@ import { education, experience } from '../data/experience';
       </article>
     </Section>
 
-    <Section id="publications" title="Publications" intro="Published and accepted work with verification-aware metadata handling.">
-      <div class="grid gap-4">
-        {publications.map((item) => (
-          <article class="section-card">
-            <p class="chip mb-3">{item.status === 'published' ? 'Published' : `Accepted (${item.event})`}</p>
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
-              {item.title ?? `${item.event} paper metadata pending title confirmation`}
-            </h3>
-            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300"><strong>Authors:</strong> {item.authors.join(', ')}</p>
-            {item.venue && <p class="mt-1 text-sm text-slate-700 dark:text-slate-300"><strong>Venue:</strong> {item.venue}</p>}
-            {item.date && <p class="mt-1 text-sm text-slate-700 dark:text-slate-300"><strong>Date:</strong> {item.date}</p>}
-            {item.doi && (
-              <p class="mt-1 text-sm text-slate-700 dark:text-slate-300">
-                <strong>DOI:</strong> <a class="link-accent" href={item.doi} target="_blank" rel="noreferrer">{item.doi}</a>
-              </p>
-            )}
-            {item.metadataVerification === 'reported_unverified' && (
-              <p class="mt-3 text-xs text-slate-600 dark:text-slate-400">Metadata verification is in progress against authoritative bibliographic records.</p>
-            )}
-            {item.notes && <p class="mt-1 text-xs text-slate-600 dark:text-slate-400">{item.notes}</p>}
-          </article>
-        ))}
+    <Section id="publications" title="Publications" intro="Research outputs grouped by publication status and venue type.">
+      <div class="space-y-8">
+        <div class="space-y-4">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Published Journal Articles</h3>
+          <div class="grid gap-4">
+            {publishedJournalArticles.map((item) => (
+              <article class="section-card">
+                <p class="chip mb-3">Published Journal Article</p>
+                <p class="text-slate-800 dark:text-slate-200">
+                  <span class="font-medium">{item.authors.join(', ')}</span>. "{item.title}." <span class="italic">{item.venue}</span>
+                  {item.date && ` (${item.date})`}.
+                </p>
+                <div class="mt-3 grid gap-1 text-sm text-slate-700 dark:text-slate-300">
+                  <p><strong>Status:</strong> Published</p>
+                  {item.doi && (
+                    <p>
+                      <strong>DOI:</strong> <a class="link-accent" href={item.doi} target="_blank" rel="noreferrer">{item.doi}</a>
+                    </p>
+                  )}
+                  {item.publisherUrl && (
+                    <p>
+                      <strong>Publisher record:</strong>{' '}
+                      <a class="link-accent" href={item.publisherUrl} target="_blank" rel="noreferrer">View source</a>
+                    </p>
+                  )}
+                </div>
+                {item.metadataVerification === 'reported_unverified' && (
+                  <p class="mt-3 text-xs text-slate-600 dark:text-slate-400">Metadata verification is still in progress for selected fields.</p>
+                )}
+                {item.notes && <p class="mt-1 text-xs text-slate-600 dark:text-slate-400">{item.notes}</p>}
+              </article>
+            ))}
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Accepted Conference Papers</h3>
+          <div class="grid gap-4">
+            {acceptedConferencePapers.map((item) => (
+              <article class="section-card">
+                <p class="chip mb-3">Accepted Conference Paper</p>
+                <p class="text-slate-800 dark:text-slate-200">
+                  <span class="font-medium">{item.authors.join(', ')}</span>. "{item.title}." <span class="italic">{item.venue}</span>.
+                </p>
+                <div class="mt-3 grid gap-1 text-sm text-slate-700 dark:text-slate-300">
+                  <p><strong>Status:</strong> Accepted for presentation (proceedings publication pending)</p>
+                  {item.location && <p><strong>Location:</strong> {item.location}</p>}
+                  {item.scheduledDates && <p><strong>Scheduled dates:</strong> {item.scheduledDates}</p>}
+                </div>
+                {item.notes && <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">{item.notes}</p>}
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </Section>
 
@@ -150,7 +184,7 @@ import { education, experience } from '../data/experience';
     <Section id="cv" title="Academic CV" intro="Curriculum vitae availability.">
       <div class="section-card">
         <p class="text-slate-700 dark:text-slate-300">
-          My academic CV is being prepared for publication. A verified PDF version will be added in this section once final checks are complete.
+          A public, research-oriented Academic CV PDF is being prepared for this section. The published version will include verified academic and research information only and will exclude private contact numbers, referee details, and non-public personal records.
         </p>
       </div>
     </Section>
